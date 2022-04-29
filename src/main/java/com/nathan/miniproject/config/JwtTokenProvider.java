@@ -30,6 +30,7 @@ public class JwtTokenProvider {
 
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", user.getUsername());
+        claims.put("is_admin", user.isAdmin());
 
         return Jwts.builder()
                 .setId(user.getId().toString())
