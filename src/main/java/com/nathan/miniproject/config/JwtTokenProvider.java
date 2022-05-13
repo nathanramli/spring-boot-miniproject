@@ -19,7 +19,7 @@ import java.util.Map;
 public class JwtTokenProvider {
     private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    @Value("60000")
+    @Value("3600000")
     private Long expiration;
 
     public String generateToken(Authentication authentication) {
