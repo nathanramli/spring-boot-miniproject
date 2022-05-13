@@ -35,11 +35,23 @@ public class UserStocksService {
     @Autowired
     private UsersRepository usersRepository;
 
+    public List<UserStocksRequest> getUserStocks(Long userId) {
+        List<UserStocks> userStocksList = userStocksRepository.findAllByUserId(userId);
+        List<UserStocksRequest> userStocksRequestList = new ArrayList<>();
+        for(UserStocks userStock : userStocksList) {
+            userStocksRequestList.add(
+                    UserStocksRequest.builder()
+                            .userId(userStock.getUser().getId())
+                            .stockCode(userStock.getStock().getCode())
+                            .shareUnits(userStock.getShareUnits())
+                            .price(userStock.getPrice())
+                            .build());
+        }
+        return userStocksRequestList;
+    }
+
     public UserStocksRequest fundStock(UserStocksRequest userStocksRequest) {
         UserStocks.UserStockId id = new UserStocks.UserStockId(userStocksRequest.getUserId(), userStocksRequest.getStockCode());
-        log.info(id.getStock());
-        log.info(id.getUser().toString());
-
         Optional<UserStocks> userStocksOptional = userStocksRepository.findById(id);
         UserStocks userStocks = null;
         if (userStocksOptional.isEmpty()) {
