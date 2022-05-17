@@ -1,0 +1,49 @@
+Table users {
+  id int [pk, increment]
+  username varchar(50)
+  password varchar(50)
+  name varchar(50)
+  balance numeric(15, 5)
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+Table user_stocks {
+  user_id int [pk, ref: > users.id]
+  stocks_code varchar(4) [pk, ref: > stocks.code]
+  share_units int
+  price numeric(15, 5) // store the average price for portofolio
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table order_books {
+  id int [pk, increment]
+  stock_code varchar(4) [ref: > stocks.code]
+  user_id int [ref: > users.id]
+  share_units int
+  price numeric(15, 5)
+  is_buy boolean
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table transactions {
+  id int [pk, increment]
+  user_id int [ref: > users.id]
+  stock_code varchar(4) [ref: > stocks.code]
+  share_units int
+  price numeric(15, 5)
+  is_buy boolean
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table stocks {
+  code varchar(4)
+  name varchar(50)
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
