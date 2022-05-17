@@ -97,5 +97,5 @@ jobs:
             docker rmi nathanramli/spring-boot-miniproject-unit-test:latest
             docker pull nathanramli/spring-boot-miniproject:latest
             docker pull nathanramli/spring-boot-miniproject-unit-test:latest
-            docker run -d --name spring-boot-miniproject --env-file env/deploy.env -p 80:8080 nathanramli/spring-boot-miniproject:latest
+            docker run -d --name spring-boot-miniproject --env-file env/deploy.env --network postgres -p 80:8080 nathanramli/spring-boot-miniproject:latest
             docker run -d --name spring-boot-miniproject-unit-test -p 8000:80 nathanramli/spring-boot-miniproject-unit-test:latest
