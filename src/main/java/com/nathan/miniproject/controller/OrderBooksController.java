@@ -44,7 +44,7 @@ public class OrderBooksController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id) {
+    public ResponseEntity<?> deleteById(@PathVariable Long id) {
         try {
             orderBooksService.deleteOrder(id);
             return Response.build(ResponseMessage.SUCCESS, HttpStatus.OK, null);
