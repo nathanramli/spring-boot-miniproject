@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @Log4j2
-@RequestMapping("/v1/stocks")
+@RequestMapping("/api/v1/stocks")
 public class StocksController {
     @Autowired
     private StocksService stocksService;

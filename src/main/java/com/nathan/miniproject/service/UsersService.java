@@ -42,6 +42,38 @@ public class UsersService implements UserDetailsService {
                 .build();
     }
 
+    public UsersRequest fundBalance(UsersRequest usersRequest) {
+        Users user = usersRepository.findById(usersRequest.getId()).get();
+
+        user.setBalance(user.getBalance() + usersRequest.getBalance());
+        usersRepository.save(user);
+
+        return UsersRequest
+                .builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .name(user.getName())
+                .balance(user.getBalance())
+                .build();
+    }
+
+    public UsersRequest find(Long id, boolean balance) {
+        Optional<Users> optionalUsers = usersRepository.findById(id);
+        if (optionalUsers.isEmpty())
+            throw new RuntimeException("User not found");
+
+        Users user = optionalUsers.get();
+        UsersRequest ret = UsersRequest
+                .builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .name(user.getName())
+                .build();
+        if (balance)
+            ret.setBalance(user.getBalance());
+        return ret;
+    }
+
     public List<UsersRequest> find() {
         List<Users> usersList = usersRepository.findAll();
         List<UsersRequest> usersRequests = new ArrayList<>();

@@ -1,8 +1,10 @@
 package com.nathan.miniproject.domain.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nathan.miniproject.domain.common.BaseDao;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SQLDelete;
@@ -13,7 +15,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @SuperBuilder
 @Entity
@@ -26,6 +30,7 @@ public class Users extends BaseDao implements Serializable, UserDetails {
     private static final long serialVersionUID = 3942756207265430850L;
 
     @Id
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -71,4 +76,8 @@ public class Users extends BaseDao implements Serializable, UserDetails {
     public boolean isEnabled() {
         return active;
     }
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private List<UserStocks> userStocks;
 }
