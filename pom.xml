@@ -105,6 +105,7 @@
 					<excludes>
 						<exclude>**/MiniprojectApplication.class</exclude>
 						<exclude>**/util/*.class</exclude>
+						<exclude>**/config/*.class</exclude>
 						<exclude>**/constant/*.class</exclude>
 						<exclude>**/controller/*.class</exclude>
 						<exclude>**/domain/**/*.class</exclude>

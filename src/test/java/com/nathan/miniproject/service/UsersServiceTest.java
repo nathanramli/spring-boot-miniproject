@@ -92,4 +92,82 @@ class UsersServiceTest {
         }
     }
 
+    @Test
+    void findUserBalanceSuccess_Test() {
+        when(usersRepository.findById(any())).thenReturn(Optional.of(
+                Users.builder()
+                        .id(1L)
+                        .username("nathan")
+                        .name("Nathan Ramli")
+                        .balance(100D)
+                        .build()
+        ));
+
+        try {
+            UsersRequest user = usersService.find(1L, true);
+            assertEquals(100D, user.getBalance());
+            assertEquals(1L, user.getId());
+        } catch (RuntimeException e) {
+            fail();
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    void findUserWithoutBalanceSuccess_Test() {
+        when(usersRepository.findById(any())).thenReturn(Optional.of(
+                Users.builder()
+                        .id(1L)
+                        .username("nathan")
+                        .name("Nathan Ramli")
+                        .balance(100D)
+                        .build()
+        ));
+
+        try {
+            UsersRequest user = usersService.find(1L, false);
+            assertEquals(null, user.getBalance());
+            assertEquals(1L, user.getId());
+        } catch (RuntimeException e) {
+            fail();
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    void fundUserBalanceSuccess_Test() {
+        when(usersRepository.findById(any())).thenReturn(Optional.of(
+                Users.builder()
+                        .id(1L)
+                        .balance(1000D)
+                        .build()
+        ));
+
+        try {
+            UsersRequest user = usersService.fundBalance(UsersRequest.builder()
+                    .id(1L)
+                    .balance(1000D)
+                    .build());
+            assertEquals(2000D, user.getBalance());
+        } catch (RuntimeException e) {
+            fail();
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    void findUserBalanceFail_Test() {
+        when(usersRepository.findById(any())).thenReturn(Optional.empty());
+
+        try {
+            UsersRequest user = usersService.find(1L, true);
+            fail();
+        } catch (RuntimeException e) {
+        } catch (Exception e) {
+            fail();
+        }
+    }
 }
