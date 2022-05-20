@@ -5,6 +5,7 @@ import com.nathan.miniproject.domain.dto.UsersRequest;
 import com.nathan.miniproject.repository.UsersRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -16,6 +17,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -65,8 +67,8 @@ class UsersServiceTest {
 
         List<UsersRequest> usersList = usersService.find();
         assertEquals(2, usersList.size());
-        assertEquals(usersList.get(0).getName(), "User 1");
-        assertEquals(usersList.get(1).getName(), "User 2");
+        assertEquals("User 1", usersList.get(0).getName());
+        assertEquals("User 2", usersList.get(1).getName());
     }
 
     @Test
@@ -164,6 +166,39 @@ class UsersServiceTest {
 
         try {
             UsersRequest user = usersService.find(1L, true);
+            fail();
+        } catch (RuntimeException e) {
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    void deleteUserSuccess_Test() {
+        Mockito.lenient().doNothing().when(usersRepository).delete(any());
+        when(usersRepository.findById(any())).thenReturn(Optional.of(
+                Users.builder()
+                        .id(1L)
+                        .username("nathan")
+                        .build()
+        ));
+
+        try {
+            usersService.deleteUser(1L);
+        } catch (RuntimeException e) {
+            fail();
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    void deleteUserFail_Test() {
+        Mockito.lenient().doNothing().when(usersRepository).delete(any());
+        when(usersRepository.findById(any())).thenReturn(Optional.empty());
+
+        try {
+            usersService.deleteUser(1L);
             fail();
         } catch (RuntimeException e) {
         } catch (Exception e) {

@@ -87,10 +87,10 @@ class OrderBooksServiceTest {
                                 .build()
                 );
 
-        assertEquals(resp.getStock().getCode(), "BBCA");
-        assertEquals(resp.getUser().getId(), 1L);
-        assertEquals(resp.getShareUnits(), 1L);
-        assertEquals(resp.getPrice(), 1000D);
+        assertEquals("BBCA", resp.getStock().getCode());
+        assertEquals(1L, resp.getUser().getId());
+        assertEquals(1L, resp.getShareUnits());
+        assertEquals(1000D, resp.getPrice());
     }
 
     @Test
@@ -136,10 +136,10 @@ class OrderBooksServiceTest {
                                 .stock(StocksRequest.builder().code("BBCA").build())
                                 .build()
                 );
-        assertEquals(resp.getStock().getCode(), "BBCA");
-        assertEquals(resp.getUser().getId(), 1L);
-        assertEquals(resp.getShareUnits(), 1L);
-        assertEquals(resp.getPrice(), 1000D);
+        assertEquals("BBCA", resp.getStock().getCode());
+        assertEquals(1L, resp.getUser().getId());
+        assertEquals(1L, resp.getShareUnits());
+        assertEquals(1000D, resp.getPrice());
     }
 
     @Test
@@ -199,10 +199,10 @@ class OrderBooksServiceTest {
                                 .build()
                 );
 
-        assertEquals(resp.getStock().getCode(), "BBCA");
-        assertEquals(resp.getUser().getId(), 1L);
-        assertEquals(resp.getShareUnits(), 2L);
-        assertEquals(resp.getPrice(), 1000D);
+        assertEquals("BBCA", resp.getStock().getCode());
+        assertEquals(1L, resp.getUser().getId());
+        assertEquals(2L, resp.getShareUnits());
+        assertEquals(1000D, resp.getPrice());
     }
 
     @Test
@@ -248,10 +248,10 @@ class OrderBooksServiceTest {
                                 .stock(StocksRequest.builder().code("BBCA").build())
                                 .build()
                 );
-        assertEquals(resp.getStock().getCode(), "BBCA");
-        assertEquals(resp.getUser().getId(), 1L);
-        assertEquals(resp.getShareUnits(), 2L);
-        assertEquals(resp.getPrice(), 1000D);
+        assertEquals("BBCA", resp.getStock().getCode());
+        assertEquals(1L, resp.getUser().getId());
+        assertEquals(2L, resp.getShareUnits());
+        assertEquals(1000D, resp.getPrice());
     }
 
     @Test
@@ -354,8 +354,8 @@ class OrderBooksServiceTest {
         List<OrderBooksRequest> orderBooksRequestList = orderBooksService
                 .findAllBids("BBNI", 1000D, true);
 
-        assertEquals(orderBooksRequestList.get(0).getUser().getId(), 1L);
-        assertEquals(orderBooksRequestList.get(0).getStock().getCode(), "BBNI");
+        assertEquals(1L, orderBooksRequestList.get(0).getUser().getId());
+        assertEquals("BBNI", orderBooksRequestList.get(0).getStock().getCode());
     }
 
     @Test
@@ -371,8 +371,8 @@ class OrderBooksServiceTest {
         List<OrderBooksRequest> orderBooksRequestList = orderBooksService
                 .findAllBids("BBNI", 1000D, false);
 
-        assertEquals(orderBooksRequestList.get(0).getUser().getId(), 1L);
-        assertEquals(orderBooksRequestList.get(0).getStock().getCode(), "BBNI");
+        assertEquals(1L, orderBooksRequestList.get(0).getUser().getId());
+        assertEquals("BBNI", orderBooksRequestList.get(0).getStock().getCode());
     }
 
     @Test

@@ -43,6 +43,26 @@ public class UsersController {
         }
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id, Principal principal) {
+        try {
+            Users user = (Users) usersService.loadUserByUsername(principal.getName());
+            if (!user.isAdmin()) {
+                log.error("Unauthorized to delete user.");
+                return Response.build(ResponseMessage.UNAUTHORIZED, HttpStatus.UNAUTHORIZED, null);
+            }
+
+            usersService.deleteUser(id);
+            return Response.build(ResponseMessage.SUCCESS, HttpStatus.OK, null);
+        } catch (RuntimeException e) {
+            log.error("User not found.");
+            return Response.build(ResponseMessage.BAD_REQUEST, HttpStatus.BAD_REQUEST, null);
+        } catch (Exception e) {
+            log.error("Failed to delete users");
+            return Response.build(ResponseMessage.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR, null);
+        }
+    }
+
     @GetMapping("/balance")
     public ResponseEntity<?> getBalance(Principal principal) {
         try {

@@ -36,10 +36,10 @@ class StocksServiceTest {
 
         List<StocksRequest> stocksList = stocksService.find();
         assertEquals(2, stocksList.size());
-        assertEquals(stocksList.get(0).getCode(), "BBCA");
-        assertEquals(stocksList.get(0).getName(), "Bank BCA");
-        assertEquals(stocksList.get(1).getCode(), "BBRI");
-        assertEquals(stocksList.get(1).getName(), "Bank BRI");
+        assertEquals("BBCA", stocksList.get(0).getCode());
+        assertEquals("Bank BCA", stocksList.get(0).getName());
+        assertEquals("BBRI", stocksList.get(1).getCode());
+        assertEquals("Bank BRI", stocksList.get(1).getName());
     }
 
     @Test

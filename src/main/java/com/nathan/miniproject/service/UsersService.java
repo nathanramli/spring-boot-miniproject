@@ -87,4 +87,11 @@ public class UsersService implements UserDetailsService {
         }
         return usersRequests;
     }
+
+    public void deleteUser(Long id) {
+        Optional<Users> optionalUsers = usersRepository.findById(id);
+        if (optionalUsers.isEmpty())
+            throw new RuntimeException("User not found");
+        usersRepository.delete(optionalUsers.get());
+    }
 }
